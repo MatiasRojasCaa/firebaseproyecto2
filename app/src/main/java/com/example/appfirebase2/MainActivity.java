@@ -27,8 +27,23 @@ public class MainActivity extends AppCompatActivity {
         ValueEventListener alumnoListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-             System.out.println("Hubo un cambio");
-            }
+             System.out.println("SNAPSHOT-------");
+             System.out.println(snapshot);
+             System.out.println(snapshot.getValue());
+             System.out.println(snapshot.child("2").getValue());
+                for (DataSnapshot alumno:snapshot.getChildren()){
+                    String Nombre = alumno.child("Nombre").getValue().toString();
+                    String Apellido = alumno.child("Apellido").getValue().toString();
+                    double nota1 = Double.parseDouble(alumno.child("notas").child("nota1").getValue().toString());
+                    double nota2 = Double.parseDouble(alumno.child("notas").child("nota2").getValue().toString());
+                    double promedio = (nota1+nota2)/2;
+                    System.out.print(Nombre+" ");
+                    System.out.print(Apellido+" ");
+                    System.out.print(nota1+" ");
+                    System.out.print(nota2+" ");
+                    System.out.println(promedio+" ");
+                }
+            };
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
